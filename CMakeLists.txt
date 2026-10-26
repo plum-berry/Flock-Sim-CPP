@@ -11,3 +11,5 @@ target_link_libraries(app
     glm
     engine
 )
+
+engine_copy_shaders(app)

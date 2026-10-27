@@ -1,9 +1,10 @@
 #include<Engine.h>
+#include "BoidTriangle.h"
 #include "Boid.h"
 
 const float Align_Weight = 1;
 const float Cohesion_Weight = 1;
-const float Seperation_weight = 1;
+const float Seperation_weight = 1.3;
 const int NumBoids = 200;
 const int Boid_radius = 10;
 
@@ -12,14 +13,15 @@ int main()
     App app;
     app.Init(1000,800);
 
-    std::vector<Boid*> boids;
+    std::vector<BoidTriangle*> boids;
     for(int i = 0;i<NumBoids;i++)
     {   
         glm::vec2 Position = glm::vec2(Random::Range(0.0f,app.Get_Width()),
                                         Random::Range(0.0f,app.Get_Height()));
-        boids.push_back(new Boid(Boid_radius,Position));
-        boids[i]->SetColor(Color::White);
+        boids.push_back(new BoidTriangle(Position));
     }
+    {
+
 
     while (!app.ShouldClose())
     {
@@ -27,12 +29,11 @@ int main()
         app.Update();
 
         app.DrawBG();
-
         glm::vec2 steer(0.0f);
         std::vector<glm::vec2> steering;
         // steering calculation
 
-        for(Boid* boid:boids)
+        for(BoidTriangle* boid:boids)
         {   
             steer = glm::vec2(0.0f);
             steer += boid->Align(boids)*Align_Weight;
@@ -52,12 +53,14 @@ int main()
         }
 
         //draw boids
-        for(Boid* boid:boids)
+        for(BoidTriangle* boid:boids)
         {
             boid->Draw(app.GetProjection());
         }
         app.SwapBuffers();
         app.PollEvents();
+    }
+    // triangle.Clean();
     }
     app.Destroy();
     

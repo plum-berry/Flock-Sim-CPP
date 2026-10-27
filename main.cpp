@@ -20,6 +20,7 @@ int main()
         boids.push_back(new Boid(Boid_radius,Position));
         boids[i]->SetColor(Color::White);
     }
+
     while (!app.ShouldClose())
     {
         app.ProcessInputs();
@@ -55,11 +56,9 @@ int main()
         {
             boid->Draw(app.GetProjection());
         }
-        
         app.SwapBuffers();
         app.PollEvents();
     }
-
     app.Destroy();
     
 }

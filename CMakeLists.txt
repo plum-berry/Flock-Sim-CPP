@@ -10,6 +10,7 @@ target_link_libraries(app
     PRIVATE 
     glm
     engine
+    imgui
 )
 
 engine_copy_shaders(app)

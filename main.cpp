@@ -2,11 +2,12 @@
 #include "BoidTriangle.h"
 #include "Boid.h"
 
-const float Align_Weight = 1;
-const float Cohesion_Weight = 1;
+const float Align_Weight = 0.8;
+const float Cohesion_Weight = .7;
 const float Seperation_weight = 1.3;
 const int NumBoids = 200;
 const int Boid_radius = 10;
+
 
 int main()
 {

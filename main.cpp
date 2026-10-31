@@ -27,7 +27,6 @@ int main()
         boids.push_back(new BoidTriangle(Position));
     }
 
-    Circle circle(100,glm::vec2(500.0f,300.0f));
 
 
     IMGUI_CHECKVERSION();
@@ -107,7 +106,6 @@ ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(),
         {
             boid->Draw(app.GetProjection());
         }
-        circle.Draw(app.GetProjection());
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -129,7 +127,6 @@ ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(),
 
     ;ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
-    circle.Clean();
     app.Destroy();
     
 }

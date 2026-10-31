@@ -9,8 +9,9 @@
 float Align_Weight = 0.8;
 float Cohesion_Weight = .7;
 float Seperation_weight = 1.3;
-const int NumBoids = 200;
+const int NumBoids = 100;
 const int Boid_radius = 10;
+bool AntiAliasing = true;
 
 
 int main()
@@ -25,6 +26,8 @@ int main()
                                         Random::Range(0.0f,app.Get_Height()));
         boids.push_back(new BoidTriangle(Position));
     }
+
+    Circle circle(100,glm::vec2(500.0f,300.0f));
 
 
     IMGUI_CHECKVERSION();
@@ -47,6 +50,13 @@ int main()
 
     while (!app.ShouldClose())
     {
+        if(AntiAliasing)
+        {
+            glEnable(GL_MULTISAMPLE);
+        }else{
+            glDisable(GL_MULTISAMPLE);
+        }
+
         app.ProcessInputs();
 
         ImGui_ImplOpenGL3_NewFrame();
@@ -61,6 +71,7 @@ ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(),
         ImGui::SliderFloat("Align \nWeight",&Align_Weight,0.0f,2.0f);
         ImGui::SliderFloat("Cohesion \nWeight",&Cohesion_Weight,0.0f,2.0f);
         ImGui::SliderFloat("Separation \nWeight",&Seperation_weight,0.0f,2.0f);
+        ImGui::Checkbox("Enable Anti Aliasing",&AntiAliasing);
         ImGui::End();
 
 
@@ -96,6 +107,7 @@ ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(),
         {
             boid->Draw(app.GetProjection());
         }
+        circle.Draw(app.GetProjection());
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -117,7 +129,7 @@ ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(),
 
     ;ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    circle.Clean();
     app.Destroy();
     
 }

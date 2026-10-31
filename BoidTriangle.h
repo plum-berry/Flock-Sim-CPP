@@ -17,7 +17,7 @@ class BoidTriangle{
         static Shader* shader;
         static int count;
         glm::vec3 color = glm::vec3(0.0f,1.0f,0.0f);
-        float size = 15.0f;
+        float size = 40.0f;
         float Perception = 100;
         float seperationPerception = 30;
 
